@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { List, Typography, Input, Space, Button, Spin } from "antd";
+import { BASE_URL } from "../constants";
 
 function LawBot() {
   const [messages, setMessages] = useState([]);
@@ -24,7 +25,7 @@ function LawBot() {
     setQuery("");
     if (tempInquiry) {
       setIsLoading(true);
-      fetch(`criminalslaws/api/v1/chatbot/query`, {
+      fetch(BASE_URL + `criminalslaws/api/v1/chatbot/query`, {
         method: "post",
         body: JSON.stringify({
           query: tempInquiry,

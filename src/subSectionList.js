@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { Divider, List, Typography, Collapse, Row, Col } from "antd";
+import { BASE_URL } from "../constants";
 
 const { Panel } = Collapse;
 
@@ -12,7 +13,7 @@ function SubSectionList() {
   const [sectionData, setSectionData] = useState(null);
   useEffect(() => {
     fetch(
-      `criminalslaws/api/v1/home/get_section_comparison`,
+      BASE_URL + `criminalslaws/api/v1/home/get_section_comparison`,
       {
         method: "post",
         body: JSON.stringify({
@@ -30,7 +31,7 @@ function SubSectionList() {
   const getScript = (currentId) => {
     setCurrentId(currentId);
     fetch(
-      `criminalslaws/api/v1/home/viewFileContent`,
+      BASE_URL + `criminalslaws/api/v1/home/viewFileContent`,
       {
         method: "post",
         body: JSON.stringify({

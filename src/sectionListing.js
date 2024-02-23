@@ -4,6 +4,7 @@ import { Radio } from "antd";
 import { Collapse } from "antd";
 import { Alert, Flex, Spin } from "antd";
 import { Link } from "react-router-dom";
+import { BASE_URL } from "../constants";
 
 const data = [
   "Racing car sprays burning fuel into crowd.",
@@ -46,65 +47,63 @@ const items: CollapseProps["items"] = [
   },
 ];
 
-function getChapterPayload(type,id){
-   switch (type){
+function getChapterPayload(type, id) {
+  switch (type) {
     case 0:
-        return {
-          category: "CRIMINALS_LAWS",
-          group: "ACT",
-          sortorder: "ASC",
-          subcategory: "NEW_CRIMINAL_ACT",
-          subgroup: "BNS_NEW",
-          Id: id,
-        };
-      case 1:
-        return {
-          category: "CRIMINALS_LAWS",
-          group: "ACT",
-          sortorder: "ASC",
-          subcategory: "OLD_CRIMINAL_ACT",
-          subgroup: "BNS_IPC",
-          Id: id,
-        };
-      case 2:
-        return {
-          category: "CRIMINALS_LAWS",
-          group: "ACT",
-          sortorder: "ASC",
-          subcategory: "NEW_CRIMINAL_ACT",
-          subgroup: "BNSS_NEW",
-          Id: id,
-        };
-      case 3:
-        return {
-          category: "CRIMINALS_LAWS",
-          group: "ACT",
-          sortorder: "ASC",
-          subcategory: "OLD_CRIMINAL_ACT",
-          subgroup: "BNSS_CRPC",
-          Id: id,
-        };
-      case 4:
-        return {
-          category: "CRIMINALS_LAWS",
-          group: "ACT",
-          sortorder: "ASC",
-          subcategory: "NEW_CRIMINAL_ACT",
-          subgroup: "BSA_NEW",
-          Id: id,
-        };
-      case 5:
-        return {
-          category: "CRIMINALS_LAWS",
-          group: "ACT",
-          sortorder: "ASC",
-          subcategory: "OLD_CRIMINAL_ACT",
-          subgroup: "BSA_IEA",
-          Id: id,
-        };
-
-    
-   }
+      return {
+        category: "CRIMINALS_LAWS",
+        group: "ACT",
+        sortorder: "ASC",
+        subcategory: "NEW_CRIMINAL_ACT",
+        subgroup: "BNS_NEW",
+        Id: id,
+      };
+    case 1:
+      return {
+        category: "CRIMINALS_LAWS",
+        group: "ACT",
+        sortorder: "ASC",
+        subcategory: "OLD_CRIMINAL_ACT",
+        subgroup: "BNS_IPC",
+        Id: id,
+      };
+    case 2:
+      return {
+        category: "CRIMINALS_LAWS",
+        group: "ACT",
+        sortorder: "ASC",
+        subcategory: "NEW_CRIMINAL_ACT",
+        subgroup: "BNSS_NEW",
+        Id: id,
+      };
+    case 3:
+      return {
+        category: "CRIMINALS_LAWS",
+        group: "ACT",
+        sortorder: "ASC",
+        subcategory: "OLD_CRIMINAL_ACT",
+        subgroup: "BNSS_CRPC",
+        Id: id,
+      };
+    case 4:
+      return {
+        category: "CRIMINALS_LAWS",
+        group: "ACT",
+        sortorder: "ASC",
+        subcategory: "NEW_CRIMINAL_ACT",
+        subgroup: "BSA_NEW",
+        Id: id,
+      };
+    case 5:
+      return {
+        category: "CRIMINALS_LAWS",
+        group: "ACT",
+        sortorder: "ASC",
+        subcategory: "OLD_CRIMINAL_ACT",
+        subgroup: "BSA_IEA",
+        Id: id,
+      };
+  }
 }
 
 function SectionListing({ type }) {
@@ -121,7 +120,6 @@ function SectionListing({ type }) {
           sortorder: "ASC",
           subcategory: "NEW_CRIMINAL_ACT",
           subgroup: "BNS_NEW",
-          
         };
       case 1:
         return {
@@ -166,13 +164,10 @@ function SectionListing({ type }) {
     }
   }
   useEffect(() => {
-    fetch(
-      "criminalslaws/api/v1/home/getSectionList",
-      {
-        method: "POST",
-        body: JSON.stringify(getPayload()),
-      }
-    )
+    fetch(BASE_URL + "criminalslaws/api/v1/home/getSectionList", {
+      method: "POST",
+      body: JSON.stringify(getPayload()),
+    })
       .then((data) => data.json())
       .then((data) => {
         console.log(data, "daaaa");
@@ -182,98 +177,102 @@ function SectionListing({ type }) {
       })
       .catch((err) => console.log(err));
   }, []);
-  function ChapterList({id}){
-     const [cpl,setCp] = useState(null)
-     useEffect(()=>{
-        async function getChapterData(id) {
-            const tempData = await fetch(
-              "criminalslaws/api/v1/home/getActChapterSectionsList",
-              {
-                method: "POST",
-                body: JSON.stringify(getChapterPayload(type,id)),
-              }
-            );
-            const json = await tempData.json();
-            return setCp(json.Data.results);
+  function ChapterList({ id }) {
+    const [cpl, setCp] = useState(null);
+    useEffect(() => {
+      async function getChapterData(id) {
+        const tempData = await fetch(
+          BASE_URL + "criminalslaws/api/v1/home/getActChapterSectionsList",
+          {
+            method: "POST",
+            body: JSON.stringify(getChapterPayload(type, id)),
           }
-          getChapterData(id)
-     },[])
-     return (
-        <>
-        {
-
-            cpl && <List
+        );
+        const json = await tempData.json();
+        return setCp(json.Data.results);
+      }
+      getChapterData(id);
+    }, []);
+    return (
+      <>
+        {cpl && (
+          <List
             size="large"
             bordered
             style={{ marginTop: 20 }}
             dataSource={cpl}
             renderItem={(item) => (
-                <Link state={{documentId:item.id}}  to={{pathname:"/sublist"}}>
-                <List.Item
-                style={{ textAlign: "left", cursor: "pointer" }}
-                >{item?.heading}</List.Item>
-                </Link>
-                )}
-                /> 
-            }
-            </>
-     )
+              <Link
+                state={{ documentId: item.id }}
+                to={{ pathname: "/sublist" }}
+              >
+                <List.Item style={{ textAlign: "left", cursor: "pointer" }}>
+                  {item?.heading}
+                </List.Item>
+              </Link>
+            )}
+          />
+        )}
+      </>
+    );
   }
-  function SubjectList({id}){
-    const [cpl,setCp] = useState(null)
-    useEffect(()=>{
-       async function getChapterData(id) {
-           const tempData = await fetch(
-             "criminalslaws/api/v1/home/getActSubjectSectionsList",
-             {
-               method: "POST",
-               body: JSON.stringify(getChapterPayload(type,id)),
-             }
-           );
-           const json = await tempData.json();
-           return setCp(json.Data.results);
-         }
-         getChapterData(id)
-    },[])
+  function SubjectList({ id }) {
+    const [cpl, setCp] = useState(null);
+    useEffect(() => {
+      async function getChapterData(id) {
+        const tempData = await fetch(
+          BASE_URL + "criminalslaws/api/v1/home/getActSubjectSectionsList",
+          {
+            method: "POST",
+            body: JSON.stringify(getChapterPayload(type, id)),
+          }
+        );
+        const json = await tempData.json();
+        return setCp(json.Data.results);
+      }
+      getChapterData(id);
+    }, []);
     return (
-       <>
-       {
-
-           cpl && <List
-           size="large"
-           bordered
-           style={{ marginTop: 20 }}
-           dataSource={cpl}
-           renderItem={(item) => (
-               <Link state={{documentId:item.id}}  to={{pathname:"/sublist"}}>
-               <List.Item
-               style={{ textAlign: "left", cursor: "pointer" }}
-               >{item?.heading}</List.Item>
-               </Link>
-               )}
-               /> 
-           }
-           </>
-    )
- }
+      <>
+        {cpl && (
+          <List
+            size="large"
+            bordered
+            style={{ marginTop: 20 }}
+            dataSource={cpl}
+            renderItem={(item) => (
+              <Link
+                state={{ documentId: item.id }}
+                to={{ pathname: "/sublist" }}
+              >
+                <List.Item style={{ textAlign: "left", cursor: "pointer" }}>
+                  {item?.heading}
+                </List.Item>
+              </Link>
+            )}
+          />
+        )}
+      </>
+    );
+  }
   console.log(chapterData, "section");
   function getChapterItems() {
     return chapterData.map((item, index) => {
       return {
         key: index.toString(),
         label: item.name,
-        children: <ChapterList id={item.id}/>,
+        children: <ChapterList id={item.id} />,
       };
     });
   }
-  function getSubjectItems(){
+  function getSubjectItems() {
     return subjectData.map((item, index) => {
-        return {
-          key: index.toString(),
-          label: item.name,
-          children: <SubjectList id={item.id}/>,
-        };
-      });
+      return {
+        key: index.toString(),
+        label: item.name,
+        children: <SubjectList id={item.id} />,
+      };
+    });
   }
   return (
     <>
@@ -291,14 +290,17 @@ function SectionListing({ type }) {
               style={{ marginTop: 20 }}
               dataSource={sectionData}
               renderItem={(item) => (
-                <Link state={{documentId:item.id}}  to={{pathname:"/sublist"}}>
-                <List.Item style={{ textAlign: "left", cursor: "pointer" }}>
-                  <List.Item.Meta
-                    title={<a href="https://ant.design">{item.heading}</a>}
-                    description={item.subheading}
+                <Link
+                  state={{ documentId: item.id }}
+                  to={{ pathname: "/sublist" }}
+                >
+                  <List.Item style={{ textAlign: "left", cursor: "pointer" }}>
+                    <List.Item.Meta
+                      title={<a href="https://ant.design">{item.heading}</a>}
+                      description={item.subheading}
                     />
-                </List.Item>
-                    </Link>
+                  </List.Item>
+                </Link>
               )}
             />
           )}
@@ -307,7 +309,7 @@ function SectionListing({ type }) {
               items={getChapterItems()}
               defaultActiveKey={[""]}
               onChange={() => {}}
-              style={{textAlign:'left',marginTop:20}}
+              style={{ textAlign: "left", marginTop: 20 }}
             />
           )}
           {value === 3 && (
@@ -315,8 +317,7 @@ function SectionListing({ type }) {
               items={getSubjectItems()}
               defaultActiveKey={["1"]}
               onChange={() => {}}
-              style={{textAlign:'left',marginTop:20}}
-
+              style={{ textAlign: "left", marginTop: 20 }}
             />
           )}
         </>
