@@ -4,7 +4,7 @@ import { Radio } from "antd";
 import { Collapse } from "antd";
 import { Alert, Flex, Spin } from "antd";
 import { Link } from "react-router-dom";
-import { BASE_URL } from "../constants";
+import { BASE_URL } from "./constants";
 
 const data = [
   "Racing car sprays burning fuel into crowd.",

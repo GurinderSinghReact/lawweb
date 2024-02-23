@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { List, Typography, Input, Space, Button, Spin } from "antd";
-import { BASE_URL } from "../constants";
+import { BASE_URL } from "./constants";
 
 function LawBot() {
   const [messages, setMessages] = useState([]);

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { Divider, List, Typography, Collapse, Row, Col } from "antd";
-import { BASE_URL } from "../constants";
+import { BASE_URL } from "./constants";
 
 const { Panel } = Collapse;
 
