@@ -58,6 +58,8 @@ function LawBot() {
     }
   };
 
+  const { Text } = Typography;
+
   return (
     <div style={{ display: "flex", flexDirection: "column", height: "92vh" }}>
       <h3 style={{ marginBottom: 16 }}>Welcome to Law Bot</h3>
@@ -71,13 +73,19 @@ function LawBot() {
             if (item?.by === "lawbot") {
               return (
                 <List.Item>
-                  <Typography.Text>{item?.msg}</Typography.Text>
+                  {/* <Typography> */}
+                  <pre>
+                  <div dangerouslySetInnerHTML={{ __html: item?.msg }} />
+                  </pre>
+                  {/* </Typography> */}
                 </List.Item>
               );
             } else {
               return (
                 <List.Item>
-                  <Typography.Text mark>{item?.msg}</Typography.Text>
+                  <pre>
+                    <div dangerouslySetInnerHTML={{ __html: item?.msg }} />
+                  </pre>
                 </List.Item>
               );
             }
