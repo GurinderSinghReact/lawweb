@@ -167,6 +167,10 @@ function SectionListing({ type }) {
     fetch(BASE_URL + "criminalslaws/api/v1/home/getSectionList", {
       method: "POST",
       body: JSON.stringify(getPayload()),
+      headers: {
+        Taxmannauthorization:
+          "BearereyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IjY5ODAyMiIsImVtYWlsSWQiOiJzYW5qZWV0LjlAZ21haWwuY29tIiwibW9iaWxlIjoiOTU2MDA1NTg0MyIsImZpcnN0TmFtZSI6IlNhbmplZXQiLCJsYXN0TmFtZSI6InJ3bHR6YSIsImRlc2lnbmF0aW9uIjoiQVNTSVNUQU5UIEdFTkVSQUwgTUFOQUdFUiAtIEFDQ09VTlRTIiwidXNlcklEIjoiNjk4MDIyIiwic2VjcmV0QWNjZXNzQ29kZSI6IiIsInRpbWVTdGFtcCI6MTcwODQxNzgzNTEyNywibmJmIjoxNzA4NDE3ODM1LCJleHAiOjE3MTEwMDk4MzUsImlhdCI6MTcwODQxNzgzNSwiaXNzIjoiMmJiZTVkZTQtMmQ1YS00ODg0LTk0Y2UtZmI2YTU5ODE2YjNmIiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo2NDA2NC8ifQ.3sPjSey0tnl4h7OrvVLP2wjOFqacY5lfOQTwsYavRHY",
+      },
     })
       .then((data) => data.json())
       .then((data) => {
@@ -186,6 +190,10 @@ function SectionListing({ type }) {
           {
             method: "POST",
             body: JSON.stringify(getChapterPayload(type, id)),
+            headers: {
+              Taxmannauthorization:
+                "BearereyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IjY5ODAyMiIsImVtYWlsSWQiOiJzYW5qZWV0LjlAZ21haWwuY29tIiwibW9iaWxlIjoiOTU2MDA1NTg0MyIsImZpcnN0TmFtZSI6IlNhbmplZXQiLCJsYXN0TmFtZSI6InJ3bHR6YSIsImRlc2lnbmF0aW9uIjoiQVNTSVNUQU5UIEdFTkVSQUwgTUFOQUdFUiAtIEFDQ09VTlRTIiwidXNlcklEIjoiNjk4MDIyIiwic2VjcmV0QWNjZXNzQ29kZSI6IiIsInRpbWVTdGFtcCI6MTcwODQxNzgzNTEyNywibmJmIjoxNzA4NDE3ODM1LCJleHAiOjE3MTEwMDk4MzUsImlhdCI6MTcwODQxNzgzNSwiaXNzIjoiMmJiZTVkZTQtMmQ1YS00ODg0LTk0Y2UtZmI2YTU5ODE2YjNmIiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo2NDA2NC8ifQ.3sPjSey0tnl4h7OrvVLP2wjOFqacY5lfOQTwsYavRHY",
+            },
           }
         );
         const json = await tempData.json();
@@ -203,8 +211,8 @@ function SectionListing({ type }) {
             dataSource={cpl}
             renderItem={(item) => (
               <Link
-                state={{ documentId: item.id }}
-                to={{ pathname: "/sublist" }}
+                // state={{ documentId: item.id }}
+                to={{ pathname: `/sublist/${item.id}` }}
               >
                 <List.Item style={{ textAlign: "left", cursor: "pointer" }}>
                   {item?.heading}
@@ -225,6 +233,10 @@ function SectionListing({ type }) {
           {
             method: "POST",
             body: JSON.stringify(getChapterPayload(type, id)),
+            headers: {
+              Taxmannauthorization:
+                "BearereyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IjY5ODAyMiIsImVtYWlsSWQiOiJzYW5qZWV0LjlAZ21haWwuY29tIiwibW9iaWxlIjoiOTU2MDA1NTg0MyIsImZpcnN0TmFtZSI6IlNhbmplZXQiLCJsYXN0TmFtZSI6InJ3bHR6YSIsImRlc2lnbmF0aW9uIjoiQVNTSVNUQU5UIEdFTkVSQUwgTUFOQUdFUiAtIEFDQ09VTlRTIiwidXNlcklEIjoiNjk4MDIyIiwic2VjcmV0QWNjZXNzQ29kZSI6IiIsInRpbWVTdGFtcCI6MTcwODQxNzgzNTEyNywibmJmIjoxNzA4NDE3ODM1LCJleHAiOjE3MTEwMDk4MzUsImlhdCI6MTcwODQxNzgzNSwiaXNzIjoiMmJiZTVkZTQtMmQ1YS00ODg0LTk0Y2UtZmI2YTU5ODE2YjNmIiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo2NDA2NC8ifQ.3sPjSey0tnl4h7OrvVLP2wjOFqacY5lfOQTwsYavRHY",
+            },
           }
         );
         const json = await tempData.json();
@@ -242,8 +254,8 @@ function SectionListing({ type }) {
             dataSource={cpl}
             renderItem={(item) => (
               <Link
-                state={{ documentId: item.id }}
-                to={{ pathname: "/sublist" }}
+                // state={{ documentId: item.id }}
+                to={{ pathname: `/sublist/${item.id}`}}
               >
                 <List.Item style={{ textAlign: "left", cursor: "pointer" }}>
                   {item?.heading}
@@ -291,8 +303,8 @@ function SectionListing({ type }) {
               dataSource={sectionData}
               renderItem={(item) => (
                 <Link
-                  state={{ documentId: item.id }}
-                  to={{ pathname: "/sublist" }}
+                  // state={{ documentId: item.id }}
+                  to={{ pathname: `/sublist/${item.id}` }}
                 >
                   <List.Item style={{ textAlign: "left", cursor: "pointer" }}>
                     <List.Item.Meta

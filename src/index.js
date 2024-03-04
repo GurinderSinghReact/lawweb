@@ -16,7 +16,7 @@ const router = createBrowserRouter([
      
     ]
   },{
-    path:'/sublist',
+    path: "/sublist/:id",
     element:<SubSectionList/>,
   }
 ]); 

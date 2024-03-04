@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { Divider, List, Typography, Collapse, Row, Col } from "antd";
 import { BASE_URL } from "./constants";
 
@@ -7,8 +7,7 @@ const { Panel } = Collapse;
 
 function SubSectionList() {
   const [secList, setSecList] = useState([]);
-  const location = useLocation();
-  const { documentId } = location.state;
+  const {id} = useParams();
   const [currentId, setCurrentId] = useState(null);
   const [sectionData, setSectionData] = useState(null);
   useEffect(() => {
@@ -17,8 +16,12 @@ function SubSectionList() {
       {
         method: "post",
         body: JSON.stringify({
-          documentId: documentId,
+          documentId: id,
         }),
+        headers: {
+          Taxmannauthorization:
+            "BearereyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IjY5ODAyMiIsImVtYWlsSWQiOiJzYW5qZWV0LjlAZ21haWwuY29tIiwibW9iaWxlIjoiOTU2MDA1NTg0MyIsImZpcnN0TmFtZSI6IlNhbmplZXQiLCJsYXN0TmFtZSI6InJ3bHR6YSIsImRlc2lnbmF0aW9uIjoiQVNTSVNUQU5UIEdFTkVSQUwgTUFOQUdFUiAtIEFDQ09VTlRTIiwidXNlcklEIjoiNjk4MDIyIiwic2VjcmV0QWNjZXNzQ29kZSI6IiIsInRpbWVTdGFtcCI6MTcwODQxNzgzNTEyNywibmJmIjoxNzA4NDE3ODM1LCJleHAiOjE3MTEwMDk4MzUsImlhdCI6MTcwODQxNzgzNSwiaXNzIjoiMmJiZTVkZTQtMmQ1YS00ODg0LTk0Y2UtZmI2YTU5ODE2YjNmIiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo2NDA2NC8ifQ.3sPjSey0tnl4h7OrvVLP2wjOFqacY5lfOQTwsYavRHY",
+        },
       }
     )
       .then((data) => data.json())
@@ -37,6 +40,10 @@ function SubSectionList() {
         body: JSON.stringify({
           fileId: currentId,
         }),
+        headers: {
+          Taxmannauthorization:
+            "BearereyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IjY5ODAyMiIsImVtYWlsSWQiOiJzYW5qZWV0LjlAZ21haWwuY29tIiwibW9iaWxlIjoiOTU2MDA1NTg0MyIsImZpcnN0TmFtZSI6IlNhbmplZXQiLCJsYXN0TmFtZSI6InJ3bHR6YSIsImRlc2lnbmF0aW9uIjoiQVNTSVNUQU5UIEdFTkVSQUwgTUFOQUdFUiAtIEFDQ09VTlRTIiwidXNlcklEIjoiNjk4MDIyIiwic2VjcmV0QWNjZXNzQ29kZSI6IiIsInRpbWVTdGFtcCI6MTcwODQxNzgzNTEyNywibmJmIjoxNzA4NDE3ODM1LCJleHAiOjE3MTEwMDk4MzUsImlhdCI6MTcwODQxNzgzNSwiaXNzIjoiMmJiZTVkZTQtMmQ1YS00ODg0LTk0Y2UtZmI2YTU5ODE2YjNmIiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo2NDA2NC8ifQ.3sPjSey0tnl4h7OrvVLP2wjOFqacY5lfOQTwsYavRHY",
+        },
       }
     )
       .then((data) => data.json())
@@ -85,7 +92,6 @@ function SubSectionList() {
                         <p>{val?.label}</p>
                       </Col>
                     </Row>
-                    {/* <Button>Expand</Button> */}
                   </React.Fragment>
                 }
               >
