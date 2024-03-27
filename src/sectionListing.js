@@ -164,7 +164,7 @@ function SectionListing({ type }) {
     }
   }
   useEffect(() => {
-    fetch(BASE_URL + "criminalslaws/api/v1/home/getSectionList", {
+    fetch(BASE_URL + "criminalslaws/api/v1/crlaw/home/getSectionList", {
       method: "POST",
       body: JSON.stringify(getPayload()),
       headers: {
@@ -186,7 +186,7 @@ function SectionListing({ type }) {
     useEffect(() => {
       async function getChapterData(id) {
         const tempData = await fetch(
-          BASE_URL + "criminalslaws/api/v1/home/getActChapterSectionsList",
+          BASE_URL + "criminalslaws/api/v1/crlaw/home/getActChapterSectionsList",
           {
             method: "POST",
             body: JSON.stringify(getChapterPayload(type, id)),
@@ -229,7 +229,7 @@ function SectionListing({ type }) {
     useEffect(() => {
       async function getChapterData(id) {
         const tempData = await fetch(
-          BASE_URL + "criminalslaws/api/v1/home/getActSubjectSectionsList",
+          BASE_URL + "criminalslaws/api/v1/crlaw/home/getActSubjectSectionsList",
           {
             method: "POST",
             body: JSON.stringify(getChapterPayload(type, id)),

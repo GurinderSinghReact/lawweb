@@ -25,7 +25,7 @@ function LawBot() {
     setQuery("");
     if (tempInquiry) {
       setIsLoading(true);
-      fetch(BASE_URL + `criminalslaws/api/v1/chatbot/query`, {
+      fetch(BASE_URL + `criminalslaws/api/v1/crlaw/chatbot/query`, {
         method: "post",
         body: JSON.stringify({
           query: tempInquiry,
